@@ -3,9 +3,8 @@ from flask_sqlalchemy import SQLAlchemy
 from os import environ
 
 app=Flask(__name__)
+app.config["SQLALCHEMY_DATABASE_URI"]= environ.get('DB_URL')
 
-app.config["SQLALCHEMY_DATABASE_URI"]= "postgresql://postgres:Lockandload123!@localhost:5432/flask_db"
-#Will be changed later
 
 db=SQLAlchemy(app)
 
@@ -18,8 +17,6 @@ class User(db.Model):
 
     def json(self):
         return {'id':self.id, 'username':self.username,'email':self.email}
-
-# db.create_all()
 
 #Creating a test route
 @app.route('/test',methods=['GET'])
