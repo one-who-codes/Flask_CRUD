@@ -18,6 +18,8 @@ class User(db.Model):
     def json(self):
         return {'id':self.id, 'username':self.username,'email':self.email}
 
+db.create_all()
+
 #Creating a test route
 @app.route('/test',methods=['GET'])
 def test():
@@ -86,8 +88,6 @@ def delUserbyID(id):
             return make_response(jsonify({'message':'user not found'}),404)
     except Exception as e:
         return make_response(jsonify({'message':'error deleting user','exception':str(e)}),500)
-
-
 if __name__ == '__main__':
     with app.app_context():
         db.create_all()
